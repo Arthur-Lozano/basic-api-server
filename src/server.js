@@ -1,53 +1,28 @@
 'use strict';
 
 const express = require('express');
-const itemModel = require('../models/category');
-const productModel = require('../models/product');
+const app = express();
 
-//Initiate new category/product
-const items = new productModel();
+const categoryRoute = require('./routes/category.js');
+const productRoute = require('./routes/product.js');
+const notFoundHandler = require('./src/handlers/404.js');
+const errorHandler = require('./src/handlers/500.js');
 
-const router = express.Router();
+app.use(categoryRoute);
+app.use(productRoute);
 
-//routes
 
-router.get('', getProducts);
-router.get('', getProducts);
-router.post('', getProducts);
-router.put('', getProducts);
-router.delete('', getProducts);
 
-function getProducts(req, res){
-  //Get all items from a databae -> CRUD
-  let all = items.get();
-  //Send items back to user or the -> Response
-  res.status(200).json(all);
+app.use('*', notFoundHandler);
+app.use(errorHandler);
+
+
+function start(port) {
+  app.listen(port, () => console.log(`Server up on port ${port}`))
 }
 
-function getOneProduct(req, res){
-  let id = parseInt(req.params.id);
-  let item = items.get(id);
-  res.status(200).json(item);
-}
 
-function createProduct(req, res){
-  let obj = req.body;
-  let newItem = items.create(obj);
-  res.status(201).json(newItem);
+module.exports = {
+  app: app,
+  start: start
 }
-
-//localhost:3333/things/1
-function updateProduct(req. res){
-  let id = parseInt(req.params.id);
-  let content = req.body;
-  let updated = items.update(id, content);
-  res.status(200).json(updated);
-}
-
-function deleteProduct(req, res){
-  let id = parseInt(req.params.id);
-  let deleted = items.delete(id);
-  res.status(204).send('item deleted');
-}
-
-module.exports = router;
