@@ -12,7 +12,6 @@ const logger = require('./src/middleware/logger.js');
 const productRoutes = require('./src/server.js');
 
 //internal constants
-const PORT = process.env.PORT || 3333;
 
 app.use(express.json());
 
