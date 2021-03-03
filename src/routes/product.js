@@ -1,13 +1,13 @@
 'use strict';
 
 const express = require('express');
-const ProductModel = require('./models/product.js');
+const ProductModel = require('../models/product.js');
 
 //Initiate new category/product
 const items = new ProductModel();
 
 
-const router = express.router();
+const router = express.Router();
 
 //routes for Products
 
@@ -56,8 +56,8 @@ function updateProduct(req, res){
 
 function deleteProduct(req, res){
   let id = parseInt(req.params.id);
-  let deleted = items.delete(id);
-  res.status(204).send('item deleted');
+  let deleteProduct = items.delete(id);
+  res.status(204).json(deleteProduct);
 }
 
 

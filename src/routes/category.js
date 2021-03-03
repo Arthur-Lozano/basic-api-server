@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const CategoryModel = require('./models/category.js');
+const CategoryModel = require('../models/category.js');
 
 //Initiate new category/product
 const category = new CategoryModel();
@@ -37,21 +37,22 @@ function getOneCategory(req, res){
 //Create category
 function createCategory(req, res){
   let obj = req.body;
-  let newItem = category.create(obj);
-  res.status(201).json(newItem);
+  console.log('body', req.body);
+  let buildCategory = category.create(obj);
+  res.status(201).json(buildCategory);
 }
 
 //update Category
 function updateCategory(req, res){
   let id = parseInt(req.params.id);
   let content = req.body;
-  let updated = category.update(id, content);
-  res.status(200).json(updated);
+  let updatedCategory = category.update(id, content);
+  res.status(200).json(updatedCategory);
 }
 
 function deleteCategory(req, res){
   let id = parseInt(req.params.id);
-  let deleted = category.delete(id);
-  res.status(204).send('item deleted');
+  let deleteCategory = category.delete(id);
+  res.status(204).send(deleteCategory);
 }
 module.exports = router;
