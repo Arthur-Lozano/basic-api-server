@@ -22,6 +22,7 @@ class CategoryModel {
       id: ++this.id,
       record: obj
     }
+    console.log(obj);
     this.db.push(record);
     return record;
   }
@@ -33,9 +34,17 @@ class CategoryModel {
   }
 
   delete(id) {
+    console.log(typeof id);
     if (id) {
+      const deleteThis = this.db.filter(item => {
+        console.log(typeof id, typeof item.id);
+        return item.id !== id
+      });
+      this.db = deleteThis;
+      console.log(deleteThis);
       return null;
     }
   }
 }
+
 module.exports = CategoryModel;
