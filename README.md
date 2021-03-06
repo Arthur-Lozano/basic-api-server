@@ -43,4 +43,4 @@
 
 #### UML
 
-![UML Example](./assets/basicserver.jpg)
+![UML Example](./src/assets/basicserver.jpg)
